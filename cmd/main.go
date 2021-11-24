@@ -6,6 +6,8 @@ import (
 	api "short-url/route"
 
 	"github.com/gin-gonic/gin"
+
+	_ "short-url/docs"
 )
 
 // @title Shorten URL API Gateway

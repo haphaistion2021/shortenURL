@@ -12,6 +12,9 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/viper v1.9.0
+	github.com/swaggo/files v0.0.0-20190704085106-630677cd5c14
+	github.com/swaggo/gin-swagger v1.3.3
+	github.com/swaggo/swag v1.7.4
 	github.com/ugorji/go v1.2.6 // indirect
 	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871 // indirect
 	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect

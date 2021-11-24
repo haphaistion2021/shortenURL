@@ -1,0 +1,36 @@
+definitions:
+  service.PingResponse:
+    properties:
+      message:
+        example: pong
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API gateway for shortenURL
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Shorten URL API Gateway
+  version: "1.0"
+paths:
+  /api/ping:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.PingResponse'
+      summary: test service API
+      tags:
+      - Test
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

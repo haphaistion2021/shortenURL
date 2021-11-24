@@ -3,7 +3,7 @@ BINARY_FILE=portal
 
 .PHONY: all build run gotool clean help
 
-all: gotool checktool build
+all: gotool swagger checktool build
 
 help:  ## show this help
 	@echo 'usage: make [target] ...'
@@ -23,14 +23,13 @@ gotool:  ## execute Go tool 'fmt' and 'vet'
 	go test -v -cover -covermode=atomic ./...
 
 checktool:  ## execute check tool
-	gocritic check ./...
 	golangci-lint run ./...
 
 clean:  ## rm bin file and vim swap files
 	rm -rf ${BINARY_PATH}
 
 swagger:  ## swagger
-	swag init
+	swag init -g cmd/main.go
 
 start:  ## execute bin file
 	./${BINARY_PATH}${BINARY_FILE}

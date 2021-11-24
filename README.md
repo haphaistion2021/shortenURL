@@ -10,6 +10,8 @@ make
 make start
 ```
 
+### Swagger Doc
+[URL](http://localhost:10010/swagger/index.html)
 
 
 #### Requirement ####
@@ -18,6 +20,7 @@ make start
 * GORM
 * Redis
 * PostgreSQL
+* Gin Swagger
 
 
 #### Usage ####

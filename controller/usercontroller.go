@@ -16,7 +16,7 @@ type UserController struct {
 // @Accept  json
 // @Produce application/json
 // @Router /api/ping [get]
-// @Success 200 {object} service.KNURLPingResponse
+// @Success 200 {object} service.PingResponse
 func (u *UserController) APIPing(c *gin.Context) {
 	resp := service.PingResponse{
 		Message: "pong",

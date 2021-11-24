@@ -10,6 +10,8 @@ import (
 
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func setupFrameworkSetting(engine *gin.Engine) {
@@ -49,6 +51,9 @@ func SetRoute(engine *gin.Engine, config *config.Configure) {
 	// init controller
 	baseCon := *setupInstance(engine, config)
 	userCon := controller.UserController{Controller: &baseCon}
+
+	url := ginSwagger.URL(*config.Server.Host + ":" + *config.Server.Port + "/swagger/doc.json") // The url pointing to API definition
+	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	// utility
 	engine.GET("/api/ping", userCon.APIPing)
