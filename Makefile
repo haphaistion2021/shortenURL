@@ -5,38 +5,32 @@ BINARY_FILE=portal
 
 all: gotool checktool build
 
-build:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${BINARY_PATH}${BINARY_FILE} ./cmd
+help:  ## show this help
+	@echo 'usage: make [target] ...'
+	@echo ''
+	@echo 'targets:'
+	@egrep '^(.+)\:\ .*##\ (.+)' ${MAKEFILE_LIST} | sed 's/:.*##/#/' | column -t -c 2 -s '#'
+
+build:  ## compile Go src, generate bin file
+	go build -race -ldflags -s -o ${BINARY_PATH}${BINARY_FILE} ./cmd
 	@echo "[OK] Server was build!"
 
-run:
-	@go run ./
-
-gotool:
+gotool:  ## execute Go tool 'fmt' and 'vet'
 	go mod tidy
 	go fmt ./...
 	go vet ./...
 	go clean -testcache
 	go test -v -cover -covermode=atomic ./...
 
-checktool:
+checktool:  ## execute check tool
 	gocritic check ./...
 	golangci-lint run ./...
 
-clean:
+clean:  ## rm bin file and vim swap files
 	rm -rf ${BINARY_PATH}
 
-swagger:
+swagger:  ## swagger
 	swag init
 
-help:
-	@echo "make - format Go src, then compile as bin file"
-	@echo "make build - compile Go src, generate bin file"
-	@echo "make run - execute Go src"
-	@echo "make clean - rm bin file and vim swap files"
-	@echo "make gotool - execute Go tool 'fmt' and 'vet'"
-	@echo "make start - execute bin file"
-	@echo "make checktool - execute check tool"
-
-start:
+start:  ## execute bin file
 	./${BINARY_PATH}${BINARY_FILE}
