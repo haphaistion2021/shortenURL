@@ -1,12 +1,12 @@
 BINARY_PATH=bin/
-BINARY=portal
+BINARY_FILE=portal
 
 .PHONY: all build run gotool clean help
 
 all: gotool checktool build
 
 build:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${BINARY_PATH}${BINARY} ./cmd
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${BINARY_PATH}${BINARY_FILE} ./cmd
 	@echo "[OK] Server was build!"
 
 run:
@@ -20,6 +20,7 @@ gotool:
 	go test -v -cover -covermode=atomic ./...
 
 checktool:
+	gocritic check ./...
 	golangci-lint run ./...
 
 clean:
@@ -38,4 +39,4 @@ help:
 	@echo "make checktool - execute check tool"
 
 start:
-	./${BINARY_PATH}${BINARY}
+	./${BINARY_PATH}${BINARY_FILE}

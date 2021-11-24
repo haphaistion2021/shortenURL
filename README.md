@@ -15,6 +15,7 @@ make start
 #### Requirement ####
 * Golang
 * Gin
+* GORM
 * Redis
 * PostgreSQL
 

@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"short-url/config"
+	"short-url/domain"
 	"time"
 
 	"gorm.io/driver/postgres"
@@ -58,7 +59,7 @@ func initORM(host, user, name, password string, isDebugMode bool) *gorm.DB {
 
 // MigrateDB for Migrate the schema
 func migrateDB(db *gorm.DB) error {
-	err := db.Debug().AutoMigrate()
+	err := db.Debug().AutoMigrate(domain.Paste{})
 	if err != nil {
 		return err
 	}

@@ -9,14 +9,20 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+type RedisPool struct {
+	pool *redis.Pool
+}
+
 // InitRedis for reids initialization
-func InitRedis(config *config.Configure) (*redis.Pool, error) {
+func InitRedis(config *config.Configure) (*RedisPool, error) {
 	ctx := context.Background()
 	pool, err := newRdbPool(ctx, config)
 	if err != nil {
 		logrus.Error(err)
 	}
-	return pool, err
+	return &RedisPool{
+		pool: pool,
+	}, nil
 }
 
 func newRdbPool(ctx context.Context, config *config.Configure) (*redis.Pool, error) {
@@ -41,4 +47,12 @@ func newRdbPool(ctx context.Context, config *config.Configure) (*redis.Pool, err
 		},
 	}
 	return &pool, nil
+}
+
+func (r *RedisPool) Close() error {
+	return r.pool.Close()
+}
+
+func (r *RedisPool) Get() redis.Conn {
+	return r.pool.Get()
 }

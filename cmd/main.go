@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"short-url/config"
-	_api "short-url/route"
+	api "short-url/route"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,11 +20,6 @@ import (
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 func main() {
 	config := &config.Config
-	// db := model.InitDB(config)
-	// rds, err := model.InitRedis(config)
-	// if err != nil {
-	// 	log.Printf("%+v\n", err)
-	// }
 	engine := setupServer(config)
 
 	err := engine.Run(*config.Server.Host + ":" + *config.Server.Port)
@@ -35,7 +30,7 @@ func main() {
 
 func setupServer(config *config.Configure) *gin.Engine {
 	engine := gin.Default()
-	_api.SetRoute(engine, config)
+	api.SetRoute(engine, config)
 
 	return engine
 }
