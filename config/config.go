@@ -93,6 +93,8 @@ func initDefault() {
 	viper.SetConfigName(setting.fileName)
 	// add config file path
 	viper.AddConfigPath(setting.filePath)
+	viper.AddConfigPath("./")
+	viper.AddConfigPath("../config")
 	// set config file type
 	viper.SetConfigType(setting.fileType)
 
@@ -105,8 +107,4 @@ func setFlag() {
 	flag.StringVar(&setting.fileType, "configType", "yaml", "Configuration file type.")
 
 	flag.Parse()
-}
-
-func SetConfigPath(path string) {
-	setting.filePath = path
 }

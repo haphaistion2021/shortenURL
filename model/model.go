@@ -14,20 +14,16 @@ import (
 )
 
 // InitDB for database initialization
-func InitDB(config *config.Configure) *gorm.DB {
-	return initORM(
-		*config.Database.Host,
-		*config.Database.User,
-		*config.Database.Name,
-		*config.Database.Password,
-		*config.Database.Debug,
-	)
+func InitDB(configure *config.Configure) *gorm.DB {
+	return initORM(configure)
 }
 
-func initORM(host, user, name, password string, isDebugMode bool) *gorm.DB {
+func initORM(configure *config.Configure) *gorm.DB {
+	setting := configure.Database
+
 	logLevel := logger.Warn
 	hasColor := false
-	if isDebugMode {
+	if *setting.Debug {
 		logLevel = logger.Info
 		hasColor = true
 	}
@@ -41,10 +37,10 @@ func initORM(host, user, name, password string, isDebugMode bool) *gorm.DB {
 	)
 	// Build connection string
 	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s",
-		host,
-		user,
-		name,
-		password)
+		*setting.Host,
+		*setting.User,
+		*setting.Name,
+		*setting.Password)
 	conn, err := gorm.Open(postgres.Open(dbURI), &gorm.Config{Logger: newLogger})
 	if err != nil {
 		log.Panic(err)
