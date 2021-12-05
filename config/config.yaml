@@ -1,0 +1,19 @@
+# Server config
+server:
+  host: 127.0.0.1
+  port: 10010
+  timeout:
+    server: 30
+    read: 15
+    write: 10
+    idle: 5
+# Database config
+database:
+  host: 127.0.0.1
+  user: 'postgres'
+  name: 'short_url_db'
+  password: '12345678'
+  debug: true
+# Redis config
+redis:
+  address: ':6379'
