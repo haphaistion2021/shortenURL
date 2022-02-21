@@ -13,11 +13,11 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var DBinstance *gorm.DB
+var dbInstance *gorm.DB
 
 // InitDB for database initialization
-func InitDB(configure *config.Configure) *gorm.DB {
-	return initORM(configure)
+func InitDB(configure *config.Configure) {
+	dbInstance = initORM(configure)
 }
 
 func initORM(configure *config.Configure) *gorm.DB {
@@ -65,5 +65,5 @@ func migrateDB(db *gorm.DB) error {
 }
 
 func GetDB() *gorm.DB {
-	return DBinstance
+	return dbInstance
 }
