@@ -29,8 +29,7 @@ func setupInstance(engine *gin.Engine, config *config.Configure) *controller.Con
 	}
 
 	// init Database
-	db := model.InitDB(config)
-	log.Println(db) // FIXME: tmp print, need remove
+	model.InitDB(config)
 
 	// init base controller
 	baseController := controller.Controller{
